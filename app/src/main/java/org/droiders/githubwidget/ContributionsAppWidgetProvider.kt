@@ -7,6 +7,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import android.content.ComponentName
 import android.appwidget.AppWidgetManager
+import android.os.Bundle
 import android.widget.RemoteViewsService
 import android.widget.Toast
 
@@ -19,12 +20,7 @@ class ContributionsAppWidgetProvider : AppWidgetProvider() {
 
     val TAG = "ContributionsAppWidgetProvider"
 
-    override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, "onReceive", Toast.LENGTH_SHORT).show()
-        super.onReceive(context, intent)
-    }
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
-        Toast.makeText(context, "onUpdate", Toast.LENGTH_SHORT).show()
         appWidgetIds?.forEach {
             updateAppWidget(context, appWidgetManager, it)
         }
@@ -62,34 +58,7 @@ class ContributionsAppWidgetProvider : AppWidgetProvider() {
 
 class GridRemoteViewsService : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
-        return GridRemoteViewsFactory(this, Utils.getTestList().takeLast(26 * 7))
+        return GridRemoteViewsAdapter(this, Utils.getTestList().takeLast(26 * 7))
     }
 }
-//
-//class ContributionsService : Service() {
-//    override fun onBind(p0: Intent?) = null
-//
-//    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-//
-//        buildUpdate(this)
-//
-//        return Service.START_STICKY
-//    }
-//
-//    fun buildUpdate(context: Context) {
-//        updateAppWidget(context)
-//    }
-//
-//    private fun updateAppWidget(context: Context) {
-//
-//        val views = RemoteViews(context.packageName, R.layout.appwidget_contributions)
-//        val serviceIntent = Intent(context, GridRemoteViewsService::class.java)
-//        views.setRemoteAdapter(R.id.grid_view, serviceIntent)
-//        // Push update for this widget to the home screen
-//        val thisWidget = ComponentName(this, ContributionsAppWidgetProvider::class.java)
-//        val manager = AppWidgetManager.getInstance(context)
-//        manager.updateAppWidget(thisWidget, views)
-//    }
-//
-//}
-//
+

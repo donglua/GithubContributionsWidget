@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:widgetCategory="home_screen"
-    android:resizeMode="horizontal"
+    android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="21600000"
+    android:minHeight="98dp"
+    android:minWidth="320dp"
+    android:previewImage="@mipmap/ic_launcher"
+    android:configure="org.droiders.githubwidget.WidgetConfigActivity"
     android:initialLayout="@layout/appwidget_contributions"
-    tools:ignore="UnusedAttribute" />
+    />

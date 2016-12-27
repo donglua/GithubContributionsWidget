@@ -1,4 +1,4 @@
-package org.droiders.githubwidget
+package org.droiders.githubwidget.data
 
 /**
  * Created by donglua on 2016/12/24.

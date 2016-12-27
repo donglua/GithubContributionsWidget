@@ -4,15 +4,17 @@ import android.content.Context
 import android.util.Log
 import android.widget.RemoteViewsService.RemoteViewsFactory
 import android.widget.RemoteViews
+import android.widget.Toast
+import org.droiders.githubwidget.data.DayContributions
 
-class GridRemoteViewsFactory(val context: Context, val contributions: List<DayContributions>) : RemoteViewsFactory {
+class GridRemoteViewsAdapter(val context: Context, val contributions: List<DayContributions>) : RemoteViewsFactory {
 
     override fun getLoadingView(): RemoteViews? = RemoteViews(context.packageName, R.layout.item_contributions)
 
     override fun getViewAt(position: Int): RemoteViews {
 
         val rv = RemoteViews(context.packageName, R.layout.item_contributions)
-        Log.d("GridRemoteViewsFactory", "getViewAt " + position)
+        Log.d("GridRemoteViewsAdapter", "getViewAt " + position)
 
         // 设置 第position位的“视图”的数据
         rv.setInt(R.id.view, "setBackgroundColor", contributions[position].color)
@@ -27,6 +29,7 @@ class GridRemoteViewsFactory(val context: Context, val contributions: List<DayCo
     override fun getViewTypeCount() = 1
 
     override fun onCreate() {
+        Toast.makeText(context, "GridRemoteViewsAdapter::onCreate", Toast.LENGTH_SHORT).show()
     }
 
     override fun getItemId(position: Int) = position.toLong()

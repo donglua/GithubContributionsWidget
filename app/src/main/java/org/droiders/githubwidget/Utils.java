@@ -2,6 +2,8 @@ package org.droiders.githubwidget;
 
 import android.graphics.Color;
 
+import org.droiders.githubwidget.data.DayContributions;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;

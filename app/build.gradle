@@ -44,4 +44,6 @@ dependencies {
 
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+
 }
