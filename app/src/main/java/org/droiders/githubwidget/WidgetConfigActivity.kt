@@ -7,6 +7,8 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
 import org.droiders.githubwidget.contributions.ContributionsContract
 import org.droiders.githubwidget.contributions.ContributionsModel
 import org.droiders.githubwidget.contributions.ContributionsPresenter
@@ -27,6 +29,7 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
 
         val binding = DataBindingUtil.setContentView<ActivityWidgetConfigBinding>(this,
                 R.layout.activity_widget_config)

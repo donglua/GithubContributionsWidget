@@ -11,10 +11,10 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".WidgetConfigActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
 
         <receiver android:name=".ContributionsWidgetProvider" >
@@ -29,7 +29,11 @@
             android:name=".GridRemoteViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
-        
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="423ff17515038a50c41085cc2dbd0087d2e51cbb" />
+
         <provider
             android:permission="${applicationId}.PROVIDER"
             android:process=":provider"

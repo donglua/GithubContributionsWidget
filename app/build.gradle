@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 25
@@ -43,4 +44,8 @@ dependencies {
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
 }
