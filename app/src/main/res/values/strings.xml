@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubWidget</string>
+    <string name="app_name">Contributions</string>
     <string name="hint_github_username">Your Github User Name</string>
     <string name="update">Update</string>
 </resources>
