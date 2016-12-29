@@ -1,6 +1,6 @@
 # GithubContributionsWidget
 
-![img](http://ogkb67oc8.bkt.clouddn.com/E2C4D9C3C16F13A8DEBB030B8E5E6C19_meitu_1.jpg)
+![img](http://ogkb67oc8.bkt.clouddn.com/E2C4D9C3C16F1.jpg)
 
 
 ## Download
