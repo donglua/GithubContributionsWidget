@@ -26,12 +26,16 @@
                 android:resource="@xml/appwidget_info" />
         </receiver>
 
-        <!--<service android:name=".ContributionsService" />-->
-
         <service
             android:name=".GridRemoteViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
+        
+        <provider
+            android:permission="${applicationId}.PROVIDER"
+            android:process=":provider"
+            android:authorities="${applicationId}.provider"
+            android:name=".data.ContributionsProvider" />
     </application>
 
 </manifest>

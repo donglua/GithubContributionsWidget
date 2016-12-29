@@ -2,7 +2,7 @@ package org.droiders.githubwidget;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import org.droiders.githubwidget.data.DayContributions;
+import org.droiders.githubwidget.data.Contributions;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -519,7 +519,7 @@ public class UtilsTest {
                 "  </g>\n" +
                 "</svg>\n";
 
-        List<DayContributions> array = Utils.svgToContributionsList(svg);
+        List<Contributions> array = Utils.svgToContributionsList(svg);
 
         Assert.assertEquals(array.get(0).getDay(), "2015-12-20");
     }

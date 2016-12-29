@@ -10,8 +10,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/et_user_name
-            "
+            android:id="@+id/et_user_name"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:textStyle="bold"
@@ -22,7 +21,6 @@
             android:maxLines="1"
             android:layout_marginBottom="12dp"
             android:layout_height="wrap_content" />
-
 
         <Button
             android:id="@+id/buttonUpdate"

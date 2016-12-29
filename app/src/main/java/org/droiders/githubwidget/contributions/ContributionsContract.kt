@@ -1,7 +1,7 @@
 package org.droiders.githubwidget.contributions
 
 import okhttp3.Call
-import org.droiders.githubwidget.data.DayContributions
+import org.droiders.githubwidget.data.Contributions
 
 /**
  * Created by donglua on 2016/12/27.
@@ -13,7 +13,7 @@ interface ContributionsContract {
     }
 
     interface View {
-        fun showAppWidget(list: List<DayContributions>)
+        fun showAppWidget(list: List<Contributions>)
         fun showFailure(message: String?)
 
     }
