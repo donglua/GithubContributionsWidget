@@ -36,14 +36,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
+
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-    compile 'com.genius:groupie:0.5.0'
 
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
-    compile 'com.facebook.stetho:stetho:1.4.2'
 }

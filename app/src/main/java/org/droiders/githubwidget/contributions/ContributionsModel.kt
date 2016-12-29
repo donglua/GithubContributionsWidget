@@ -35,5 +35,6 @@ class ContributionsModel : ContributionsContract.Model {
     override fun saveUserName(context: Context, userName: String) {
         val editor = context.getSharedPreferences("github_contributions", Context.MODE_PRIVATE).edit()
         editor.putString("username", userName)
+        editor.commit()
     }
 }

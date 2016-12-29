@@ -32,6 +32,11 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
                 R.layout.activity_widget_config)
 
         val model = ContributionsModel()
+
+        val name = model.getUserName(this)
+        binding.etUserName.setText(name)
+        binding.etUserName.setSelection(name.length)
+
         mPresenter = ContributionsPresenter(this, model)
 
         binding.buttonUpdate.setOnClickListener {
@@ -88,6 +93,7 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
 
     fun showProcessing() {
         mProgressDialog = ProgressDialog(this, R.style.Theme_AppCompat_Dialog)
+        mProgressDialog?.setMessage("loading...")
         mProgressDialog?.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         mProgressDialog?.show()
     }
