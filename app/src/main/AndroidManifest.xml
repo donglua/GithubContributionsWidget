@@ -11,10 +11,9 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".WidgetConfigActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
 
         <receiver android:name=".ContributionsWidgetProvider" >
