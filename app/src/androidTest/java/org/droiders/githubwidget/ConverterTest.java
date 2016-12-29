@@ -14,7 +14,7 @@ import java.util.List;
  * Created by donglua on 2016/12/24.
  */
 @RunWith(AndroidJUnit4.class)
-public class UtilsTest {
+public class ConverterTest {
     @Test
     public void convertSvgToColorArray() throws Exception {
 
@@ -519,7 +519,7 @@ public class UtilsTest {
                 "  </g>\n" +
                 "</svg>\n";
 
-        List<Contributions> array = Utils.svgToContributionsList(svg);
+        List<Contributions> array = Converter.svgToContributionsList(svg);
 
         Assert.assertEquals(array.get(0).getDay(), "2015-12-20");
     }

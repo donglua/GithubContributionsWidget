@@ -1,24 +1,24 @@
 package org.droiders.githubwidget
 
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.util.Log
 import android.widget.RemoteViewsService.RemoteViewsFactory
 import android.widget.RemoteViews
-import android.widget.Toast
 import org.droiders.githubwidget.data.Contributions
-import org.droiders.githubwidget.data.DBHelper
 import org.droiders.githubwidget.data.DBHelper.Companion.COLUMN_COLOR
+import org.droiders.githubwidget.data.DBHelper.Companion.COLUMN_DATA_COUNT
 import org.droiders.githubwidget.data.DBHelper.Companion.COLUMN_DATE
 import org.droiders.githubwidget.data.DBHelper.Companion.TABLE_NAME
+import java.util.*
 
 class GridRemoteViewsAdapter(val context: Context) : RemoteViewsFactory {
 
     val TAG = "GridRemoteViewsAdapter"
-    var mCursor: Cursor? = null
+
     val uri: Uri
+    val array = ArrayList<ArrayList<Contributions>>(7)
 
     init {
         uri = Uri.parse("content://${context.applicationInfo?.packageName}.provider/$TABLE_NAME")
@@ -29,27 +29,19 @@ class GridRemoteViewsAdapter(val context: Context) : RemoteViewsFactory {
     override fun getViewAt(position: Int): RemoteViews {
 
         val rv = RemoteViews(context.packageName, R.layout.item_contributions)
-        Log.d("GridRemoteViewsAdapter", "getViewAt " + position)
+
+        if (array.isEmpty()) populateCursor()
 
 
-        if (mCursor == null) populateCursor()
+        val row = position / 26
+        val col = position % 26
 
-        mCursor?.run {
-            if (moveToPosition(position)) {
+        // Log.d("GridRemoteViewsAdapter", "getViewAt $position - $row, $col")
 
-                val color = getInt(getColumnIndex(COLUMN_COLOR))
+        if (col < array[row].size) {
+            val contributions = array[row][col]
 
-                val date = getInt(getColumnIndex(COLUMN_DATE))
-                Log.d(TAG, "date = $date")
-
-                // 设置 第position位的“视图”的数据
-                rv.setInt(R.id.view, "setBackgroundColor", color)
-
-                // 设置 第position位的“视图”对应的响应事件
-                //        val fillInIntent = Intent()
-                //        fillInIntent.putExtra(GridWidgetProvider.COLLECTION_VIEW_EXTRA, position)
-                //        rv.setOnClickFillInIntent(R.id.itemLayout, fillInIntent)
-            }
+            rv.setInt(R.id.view, "setBackgroundColor", contributions.color)
         }
 
         return rv
@@ -58,38 +50,73 @@ class GridRemoteViewsAdapter(val context: Context) : RemoteViewsFactory {
     override fun getViewTypeCount() = 1
 
     override fun onCreate() {
-        mCursor = context.contentResolver?.query(uri, null, null, null, null)
-        Log.d(TAG, "cursor.count = ${mCursor?.count}")
-
+        populateCursor()
     }
 
     override fun getItemId(position: Int) = position.toLong()
 
     override fun onDataSetChanged() {
 
-        mCursor?.close()
-
         populateCursor()
     }
 
     override fun hasStableIds() = true
 
-    override fun getCount() = mCursor?.count ?: 0
+    override fun getCount() = 26 * 7
 
     override fun onDestroy() {
-        mCursor?.close()
+        array.clear()
     }
 
     fun populateCursor() {
 
-        mCursor?.close()
-        mCursor = null
-
-        mCursor = context.contentResolver.query(
+        var total = 26 * 7
+        val mCursor = context.contentResolver.query(
                 uri,
                 null,
-                " 1=1 limit ${26 * 7} ",
                 null,
-                null)
+                null,
+                "$COLUMN_DATE DESC limit $total ")
+
+        if (mCursor?.moveToFirst() as Boolean) {
+            val date = mCursor?.getInt(mCursor.getColumnIndex(COLUMN_DATE))!!
+            val year = date / 10000
+            val month = date % 10000 / 100
+            val day = date % 100
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month - 1, day) // Month value is 0-based
+
+            val week = calendar.get(Calendar.DAY_OF_WEEK)
+            total -= (7 - week)
+
+            if (mCursor.moveToPosition(total - 1)) {
+
+                array.clear()
+
+                (1..7).forEach {
+                    array.add(ArrayList<Contributions>(26))
+                }
+                var currentWeek = 6
+
+                do {
+                    currentWeek %= 7
+
+                    array[6 - currentWeek].add(Contributions(
+                        "${mCursor?.getInt(mCursor.getColumnIndex(COLUMN_DATE))!!}",
+                        mCursor?.getInt(mCursor.getColumnIndex(COLUMN_DATA_COUNT))!!,
+                        mCursor?.getInt(mCursor.getColumnIndex(COLUMN_COLOR))!!
+                    ))
+                    currentWeek = currentWeek + 7 - 1
+
+                } while (mCursor.moveToPrevious())
+            }
+
+            // array.forEach {
+            //     it.forEach { print(" ${it.day} | ") }
+            //     println()
+            // }
+        }
+
+        mCursor.close()
     }
 }

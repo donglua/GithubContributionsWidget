@@ -1,5 +1,6 @@
 package org.droiders.githubwidget
 
+import android.app.ProgressDialog
 import android.appwidget.AppWidgetManager
 import android.content.*
 import android.databinding.DataBindingUtil
@@ -22,6 +23,7 @@ import org.droiders.githubwidget.databinding.ActivityWidgetConfigBinding
 class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
 
     private lateinit var mPresenter: ContributionsContract.Presenter
+    private var mProgressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,8 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
         val binding = DataBindingUtil.setContentView<ActivityWidgetConfigBinding>(this,
                 R.layout.activity_widget_config)
 
-        mPresenter = ContributionsPresenter(this, ContributionsModel())
+        val model = ContributionsModel()
+        mPresenter = ContributionsPresenter(this, model)
 
         binding.buttonUpdate.setOnClickListener {
             val userName = binding.etUserName.text.toString()
@@ -37,7 +40,9 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
                 showToast("User Name Can't Be Blank ~")
                 return@setOnClickListener
             }
+            model.saveUserName(this, userName)
             mPresenter.initUserContributions(userName)
+            showProcessing()
         }
     }
 
@@ -54,15 +59,17 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
 
         updateWidgetList()
 
+        dismissProcessing()
+
         setResult(RESULT_OK)
         finish()
     }
 
 
     private fun updateWidgetList() {
-        val name = ComponentName(this, ContributionsAppWidgetProvider::class.java)
+        val name = ComponentName(this, ContributionsWidgetProvider::class.java)
         val widgetIds = AppWidgetManager.getInstance(this).getAppWidgetIds(name)
-        val updateWidgetListIntent = Intent(this, ContributionsAppWidgetProvider::class.java)
+        val updateWidgetListIntent = Intent(this, ContributionsWidgetProvider::class.java)
         updateWidgetListIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
         updateWidgetListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, widgetIds)
         sendBroadcast(updateWidgetListIntent)
@@ -73,4 +80,20 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
             if (message != null) showToast(message)
         }
     }
+
+    override fun onDestroy() {
+        dismissProcessing()
+        super.onDestroy()
+    }
+
+    fun showProcessing() {
+        mProgressDialog = ProgressDialog(this, R.style.Theme_AppCompat_Dialog)
+        mProgressDialog?.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        mProgressDialog?.show()
+    }
+
+    fun dismissProcessing() {
+        mProgressDialog?.dismiss()
+    }
+
 }

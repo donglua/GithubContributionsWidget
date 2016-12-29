@@ -2,10 +2,12 @@ package org.droiders.githubwidget.contributions
 
 import okhttp3.Call
 import okhttp3.Response
-import org.droiders.githubwidget.Utils
+import org.droiders.githubwidget.Converter
 import java.io.IOException
 
 /**
+ * Presenter
+ *
  * Created by donglua on 2016/12/27.
  */
 
@@ -20,7 +22,7 @@ class ContributionsPresenter(
             override fun onResponse(call: Call?, response: Response?) {
                 if (response?.isSuccessful?:false) {
                     val svgString = response?.body()?.string()
-                    val list = Utils.svgToContributionsList(svgString!!)
+                    val list = Converter.svgToContributionsList(svgString!!)
 
                     mView.showAppWidget(list)
                 } else {
@@ -33,7 +35,6 @@ class ContributionsPresenter(
             }
         })
     }
-
 
 }
 
