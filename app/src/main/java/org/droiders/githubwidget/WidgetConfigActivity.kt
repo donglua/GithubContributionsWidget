@@ -92,7 +92,7 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
     }
 
     fun showProcessing() {
-        mProgressDialog = ProgressDialog(this, R.style.Theme_AppCompat_Dialog)
+        mProgressDialog = ProgressDialog(this)
         mProgressDialog?.setMessage("loading...")
         mProgressDialog?.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         mProgressDialog?.show()
