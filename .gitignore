@@ -7,3 +7,6 @@
 /build
 /captures
 .externalNativeBuild
+/app/fabric.properties
+/*/*.apk
+*.apk
