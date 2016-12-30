@@ -7,6 +7,7 @@ import android.widget.RemoteViews
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
 import android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS
+import android.content.ComponentName
 import android.content.ContentValues
 import android.net.Uri
 import android.text.TextUtils
@@ -63,7 +64,15 @@ class ContributionsWidgetProvider : AppWidgetProvider() {
                                 values.put(DBHelper.COLUMN_DATE, it.day)
                                 context.contentResolver.insert(uri, values)
                             }
-                            super@ContributionsWidgetProvider.onReceive(context, intent)
+                            if (intent?.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS) as Boolean) {
+                                super@ContributionsWidgetProvider.onReceive(context, intent)
+                            } else {
+                                val name = ComponentName(context, ContributionsWidgetProvider::class.java)
+                                val appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(name)
+                                if (appWidgetIds != null && appWidgetIds.size > 0) {
+                                    onUpdate(context, AppWidgetManager.getInstance(context), appWidgetIds)
+                                }
+                            }
                         }
                     }, mModel)
                     mPresenter?.initUserContributions(userName)

@@ -69,10 +69,8 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
 
         dismissProcessing()
 
-        setResult(RESULT_OK)
         finish()
     }
-
 
     private fun updateWidgetList() {
         val name = ComponentName(this, ContributionsWidgetProvider::class.java)
@@ -80,7 +78,9 @@ class WidgetConfigActivity : AppCompatActivity(), ContributionsContract.View {
         val updateWidgetListIntent = Intent(this, ContributionsWidgetProvider::class.java)
         updateWidgetListIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
         updateWidgetListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, widgetIds)
+        updateWidgetListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetIds.last())
         sendBroadcast(updateWidgetListIntent)
+        setResult(RESULT_OK, updateWidgetListIntent)
     }
 
     override fun showFailure(message: String?) {
