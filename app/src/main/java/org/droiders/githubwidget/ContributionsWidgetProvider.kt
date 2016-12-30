@@ -64,15 +64,7 @@ class ContributionsWidgetProvider : AppWidgetProvider() {
                                 values.put(DBHelper.COLUMN_DATE, it.day)
                                 context.contentResolver.insert(uri, values)
                             }
-                            if (intent?.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS) as Boolean) {
-                                super@ContributionsWidgetProvider.onReceive(context, intent)
-                            } else {
-                                val name = ComponentName(context, ContributionsWidgetProvider::class.java)
-                                val appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(name)
-                                if (appWidgetIds != null && appWidgetIds.size > 0) {
-                                    onUpdate(context, AppWidgetManager.getInstance(context), appWidgetIds)
-                                }
-                            }
+                            super@ContributionsWidgetProvider.onReceive(context, intent)
                         }
                     }, mModel)
                     mPresenter?.initUserContributions(userName)
