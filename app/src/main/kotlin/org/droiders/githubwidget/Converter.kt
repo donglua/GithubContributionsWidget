@@ -1,10 +1,8 @@
 package org.droiders.githubwidget
 
 import android.graphics.Color
-
 import org.droiders.githubwidget.data.Contributions
-
-import java.util.ArrayList
+import java.util.*
 import java.util.regex.Pattern
 
 

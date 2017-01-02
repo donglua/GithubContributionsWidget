@@ -1,27 +1,21 @@
 package org.droiders.githubwidget
 
-import android.appwidget.AppWidgetProvider
-import android.content.Intent
-import android.content.Context
-import android.widget.RemoteViews
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
-import android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS
-import android.content.ComponentName
+import android.appwidget.AppWidgetProvider
 import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
 import android.util.Log
+import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
 import org.droiders.githubwidget.contributions.ContributionsContract
 import org.droiders.githubwidget.contributions.ContributionsModel
 import org.droiders.githubwidget.contributions.ContributionsPresenter
 import org.droiders.githubwidget.data.Contributions
 import org.droiders.githubwidget.data.DBHelper
-import java.io.IOException
 
 
 /**

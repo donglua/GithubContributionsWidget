@@ -1,11 +1,9 @@
 package org.droiders.githubwidget
 
 import android.content.Context
-import android.database.Cursor
 import android.net.Uri
-import android.util.Log
-import android.widget.RemoteViewsService.RemoteViewsFactory
 import android.widget.RemoteViews
+import android.widget.RemoteViewsService.RemoteViewsFactory
 import org.droiders.githubwidget.data.Contributions
 import org.droiders.githubwidget.data.DBHelper.Companion.COLUMN_COLOR
 import org.droiders.githubwidget.data.DBHelper.Companion.COLUMN_DATA_COUNT

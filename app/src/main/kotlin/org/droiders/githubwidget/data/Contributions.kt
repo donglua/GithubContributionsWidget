@@ -1,8 +1,5 @@
 package org.droiders.githubwidget.data
 
-import android.os.Parcel
-import android.os.Parcelable
-
 /**
  * Contributions bean
  *

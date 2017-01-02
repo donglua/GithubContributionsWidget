@@ -1,7 +1,6 @@
 package org.droiders.githubwidget.contributions
 
 import android.content.Context
-import android.preference.Preference
 import okhttp3.Call
 import org.droiders.githubwidget.data.Contributions
 

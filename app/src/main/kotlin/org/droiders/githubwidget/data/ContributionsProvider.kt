@@ -23,7 +23,8 @@ class ContributionsProvider : ContentProvider() {
         return true
     }
 
-    override fun query(uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
+    override fun query(uri: Uri, projection: Array<String>?, selection: String?,
+        selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
         return db?.query(TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder)
     }
 
